@@ -5,7 +5,7 @@ import tech.getarrays.employeemanager.model.Employee;
 
 import java.util.Optional;
 
-public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
+public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     /*
     1 - Why do we use this?
 
@@ -23,7 +23,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     Integer - The type of the primary key (ID)
     */
 
-    void deleteEmployeeById(Long id);
+    void deleteById(Long id);
 
     Optional<Employee> findEmployeeById(Long id);
 }
