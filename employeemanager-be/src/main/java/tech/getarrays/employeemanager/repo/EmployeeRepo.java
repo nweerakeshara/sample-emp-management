@@ -26,4 +26,27 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     void deleteById(Long id);
 
     Optional<Employee> findEmployeeById(Long id);
+        /*
+        * In your repo:
+
+            Optional<Employee> findEmployeeById(Long id);
+
+            This works because of Spring Data JPA query derivation.
+
+            👉 Spring reads the method name and automatically builds the query.
+
+            🔥 How Spring understands it
+
+            Spring breaks the method name like this:
+
+            find → operation (SELECT)
+            Employee → ignored (just descriptive)
+            ById → condition (WHERE id = ?)
+
+            👉 It internally creates something like:
+
+            SELECT * FROM employee WHERE id = ?
+
+            So you didn’t write SQL — Spring generated it for you.
+    * */
 }
