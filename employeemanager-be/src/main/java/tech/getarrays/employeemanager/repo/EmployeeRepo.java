@@ -49,4 +49,55 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
             So you didn’t write SQL — Spring generated it for you.
     * */
+
+    /*
+        @Query("SELECT e FROM Employee e WHERE e.salary > :salary AND e.department = :dept")
+        List<Employee> findHighSalary(@Param("salary") double salary, @Param("dept") String dept);
+
+        or
+
+        @Query(value = "SELECT * FROM employee WHERE salary > ?1 AND age < ?2", nativeQuery = true)
+        List<Employee> findEmployees(double salary, int age);
+    * */
+
+
+
+
+  /*         // Repository
+                @Query("SELECT e FROM Employee e WHERE e.jobTitle = :title")
+                List<Employee> findByJobTitle(@Param("title") String title);
+
+            // Service - Stream used bcz Data type changes
+                public List<EmployeeDTO> getEmployees(String title) {
+                    return repo.findByJobTitle(title).stream()
+                               .map(emp -> new EmployeeDTO(emp.getId(), emp.getName(), emp.getEmail()))
+                               .collect(Collectors.toList());
+
+    */
+
+
+    /*
+            WITH PAGINATION - Pageable pageable
+
+            // Repository - Custom JPQL query with Pagination
+                @Query("SELECT e FROM Employee e WHERE e.jobTitle LIKE %:title%")
+                Page<Employee> findByJobTitleContaining(@Param("title") String title, Pageable pageable);
+
+            //Service
+                public Page<Employee> searchEmployeesByTitle(String title, Pageable pageable) {
+                    return employeeRepo.findByJobTitleContaining(title, pageable);
+                }
+
+
+           //Controller
+           @GetMapping("/search")
+                public ResponseEntity<Page<Employee>> searchEmployees(
+                        @RequestParam String title,
+                        @PageableDefault(size = 10) Pageable pageable) {
+
+                    return ResponseEntity.ok(employeeService.searchEmployeesByTitle(title, pageable));
+                }
+    */
+
+
 }

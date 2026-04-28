@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 
-@Entity
+@Entity //if needed @Table(name="employee")|| For Lombak - @AllArgsConstructor, @NoArgsConstructor || @Transactional - is like an "All-or-Nothing" insurance policy for your database operations.
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,11 +13,17 @@ public class Employee implements Serializable {
     private String name;
     private String email;
     private String jobTitle;
+
+    // can use @JsonProperty("phoneNumber") to use a different name
     private String phone;
     private String imageUrl;
     @Column(nullable = false, updatable = false)
     private String employeeCode;
 
+
+    //@Column(nullable = false)
+    //@JsonIgnore // This prevents the password from being serialized into JSON
+    //private String password;
 
     public Employee() {
         // No-args constructor (required by JPA)
